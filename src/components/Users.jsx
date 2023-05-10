@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 const Users = () => {
-  const users = useLoaderData();
+  const loadedUsers = useLoaderData();
+  const [users, setUsers] = useState(loadedUsers);
   // console.log(users);
 
   const handleDeleteUser = (_id) => {
@@ -16,6 +17,8 @@ const Users = () => {
         console.log(data);
         if (data.deletedCount === 1) {
           alert("User Delete Successful");
+          const remaining = users.filter((user) => user._id !== _id);
+          setUsers(remaining);
         }
       });
   };
